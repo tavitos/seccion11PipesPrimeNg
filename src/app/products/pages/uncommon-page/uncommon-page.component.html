@@ -1,0 +1,89 @@
+<p-panel header="Pipes no tan comunes" [showHeader]="true" class="p-1">
+    <p>
+        Pipes incluidos en Angular - Usualmente en el Common Module
+    </p>
+</p-panel>
+
+<div class="grid">
+    <div class="col-12 md:col-6">
+        <!-- El i18nSelect cambia lenguaje para que se lea bien como en este ejemplo el cambio de género -->
+        <p-fieldset legend="i18nSelect Pipe" [toggleable]="true">
+            <!-- <p>
+                Saludos {{ name }}, es un placer invitarlo
+                a nuestro evento.
+            </p> -->
+            <p>
+                Saludos {{ name }}, es un placer 
+                {{ gender | i18nSelect: invitationMap }}
+                a nuestro evento.
+            </p>
+            <p-button
+                (click)="changeClient()"
+                label="Cambiar persona"
+            >
+            </p-button>
+        </p-fieldset>
+    </div>
+    
+    <div class="col-12 md:col-6">
+        <!-- El i18nPlural trabaja principalmente con números para poder pluralizar -->
+        <p-fieldset legend="i18nPlural Pipe" [toggleable]="true">
+            <!-- <p>
+                Actualmente tenemos 10 clientes esperando
+            </p> -->
+            <p>
+                Actualmente {{ clients.length | i18nPlural:clientsMap }}
+            </p>
+            <p-button 
+                (click)="deleteClient()"
+                label="Borrar cliente"></p-button>
+        </p-fieldset>
+    </div>
+    
+    <div class="col-12 md:col-6">
+        <p-fieldset legend="Slice Pipe" [toggleable]="true">
+            <b>Original</b>
+            <pre>{{ clients }}</pre>
+            <b>slice:0:2</b>
+            <pre>{{ clients | slice:0:2 }}</pre>
+            <b>slice:1:2</b>
+            <pre>{{ clients | slice:1:2 }}</pre>
+            <b>slice:1:3</b>
+            <pre>{{ clients | slice:1:3 }}</pre>
+            <b>slice:3:4</b>
+            <pre>{{ clients | slice:3:4 }}</pre>
+            <!-- El slide negativo corta desde el último elemento del arreglo. -->
+            <b>slice:0:-3</b>
+            <pre>{{ clients | slice:0:-3 }}</pre>
+        </p-fieldset>
+    </div>
+
+    <div class="col-12 md:col-6">
+        <p-fieldset legend="Json Pipe" [toggleable]="true">
+            <pre>{{ person | json }}</pre> 
+        </p-fieldset>
+    </div>
+
+    <div class="col-12 md:col-6">
+        <!-- Barrer las Propiedades del objeto como si fuera arreglo -->
+        <p-fieldset legend="KeyValue Pipe" [toggleable]="true">
+            <ul>
+                <!-- {{ item | json }} -->
+                <li *ngFor="let item of person | keyvalue">
+                    <b>{{ item.key | titlecase }}:</b> {{ item.value }}
+                </li>
+            </ul>
+        </p-fieldset>
+    </div>
+
+    <div class="col-12 md:col-6">
+        <!-- Trabaja preferiblemente con Observables y promesas -->
+        <p-fieldset legend="Async Pipe" [toggleable]="true">
+            <pre *ngIf="!(myObservableTimer | async)">Resolviendo Observable</pre>
+            <pre>{{ myObservableTimer | async }}</pre>
+            <!-- <pre>{{ myObservableTimer | json }}</pre> -->
+            <pre *ngIf="!(promiseValue | async)">Resolviendo promesa</pre>
+            <pre>{{ promiseValue | async }}</pre>
+        </p-fieldset>
+    </div>
+</div>
